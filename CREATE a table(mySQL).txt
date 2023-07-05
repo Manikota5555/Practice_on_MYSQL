@@ -1,0 +1,78 @@
+CREATE a table(mySQL)
+mysql> USE employee;
+Database changed
+mysql> SHOW TABLES;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| book               |
+| countries          |
+| employee           |
+| orders             |
+| students           |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> DESC BOOK;
++------------------+-------------+------+-----+------------+-------+
+| Field            | Type        | Null | Key | Default    | Extra |
++------------------+-------------+------+-----+------------+-------+
+| book_id          | int(11)     | NO   | PRI | NULL       |       |
+| title            | varchar(20) | NO   |     | NULL       |       |
+| author           | varchar(20) | NO   |     | NULL       |       |
+| publication_date | date        | NO   |     | 1900-01-01 |       |
+| price            | double      | NO   |     | NULL       |       |
+| quantity         | int(11)     | NO   |     | 0          |       |
++------------------+-------------+------+-----+------------+-------+
+6 rows in set (0.01 sec)
+
+mysql> DESC countries;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | int(11)     | NO   | PRI | NULL    |       |
+| country_name | varchar(20) | NO   |     | NULL    |       |
+| population   | int(11)     | NO   |     | NULL    |       |
+| capital_city | varchar(20) | YES  |     | NULL    |       |
+| area         | varchar(20) | NO   |     | 0       |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> DESC Employee;
++---------------+---------------+------+-----+------------+-------+
+| Field         | Type          | Null | Key | Default    | Extra |
++---------------+---------------+------+-----+------------+-------+
+| employee_id   | int(11)       | NO   | PRI | NULL       |       |
+| First_name    | varchar(20)   | NO   |     | NULL       |       |
+| Last_name     | varchar(20)   | NO   |     | NULL       |       |
+| salary        | decimal(10,2) | YES  |     | NULL       |       |
+| email         | varchar(20)   | YES  | UNI | NULL       |       |
+| hire_date     | date          | NO   |     | 2023-06-28 |       |
+| department_id | int(11)       | NO   |     | 0          |       |
++---------------+---------------+------+-----+------------+-------+
+7 rows in set (0.02 sec)
+
+mysql> DESC orders;
++--------------+-------------+------+-----+------------+-------+
+| Field        | Type        | Null | Key | Default    | Extra |
++--------------+-------------+------+-----+------------+-------+
+| order_id     | int(11)     | NO   | PRI | NULL       |       |
+| customer_id  | int(11)     | NO   |     | NULL       |       |
+| order_date   | date        | NO   |     | 2023-06-28 |       |
+| total_amount | int(11)     | NO   |     | NULL       |       |
+| status       | varchar(20) | NO   |     | Pending    |       |
++--------------+-------------+------+-----+------------+-------+
+5 rows in set (0.02 sec)
+
+mysql> DESC STUDENTS;
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| student_id        | int(11)     | NO   | PRI | NULL    |       |
+| first_name        | varchar(20) | NO   |     | NULL    |       |
+| last_name         | varchar(20) | NO   |     | NULL    |       |
+| date_of_birth     | date        | NO   |     | NULL    |       |
+| email             | varchar(20) | YES  | UNI | NULL    |       |
+| enrollment_status | varchar(20) | NO   |     | Active  |       |
++-------------------+-------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
