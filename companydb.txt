@@ -1,0 +1,607 @@
+Create a new database called "CompanyDB".
+
+ 
+
+Create a table named "Employees" with the following columns:
+
+ 
+
+EmployeeID (integer, primary key)
+FirstName (varchar(50))
+LastName (varchar(50))
+Age (integer)
+Department (varchar(50))
+Salary (decimal(10,2))
+HireDate (date)
+Insert sample data into the "Employees" table with at least 10 records.
+
+ 
+
+Write SQL queries to perform the following tasks:
+*a) Retrieve all columns for all employees.
+*b) Retrieve the first name and last name of employees with an age greater than 30.
+*c) Retrieve the employee ID, first name, and last name of employees in the Sales or HR department.
+*d) Retrieve the employee ID, first name, and last name of employees hired between '2022-01-01' and '2022-12-31'.
+*e) Retrieve the first name and last name of employees whose first name starts with 'J'.
+*f) Retrieve the first name and last name of employees whose last name ends with 'son'.
+*g) Retrieve the employee ID, first name, and last name of employees whose age is either 25, 30, or 35.
+*h) Retrieve the average salary of all employees.
+*i) Retrieve the total salary of employees in the Sales department.
+*j) Retrieve the count of employees in the HR department.
+*k) Retrieve the employee ID, first name, and last name of employees whose hire date is in the current year.
+*l) Retrieve the employee ID, first name, and last name of employees whose first name is not 'John'.
+*m) Retrieve the employee ID, first name, and last name of employees sorted by their salary in descending order.
+*n) Retrieve the first 5 records from the "Employees" table.
+*o) Retrieve the employee ID, first name, and last name of employees whose salary is between $3000 and $5000.
+*p) Retrieve the employee ID, first name, and last name of employees whose first name is either 'John' or 'Jane'.
+*q) Retrieve the employee ID, first name, and last name of employees whose last name is not 'Smith' and are in the age range of 25 to 40.
+*r) Retrieve the employee ID, first name, and last name of employees whose department is either 'Sales' or 'Marketing' and age is greater than 35.
+*s) Retrieve the employee ID, first name, and last name of employees whose hire date is within the last 6 months.
+*t) Retrieve the employee ID, first name, and last name of employees whose first name contains the letter 'a'.
+*u) Retrieve the employee ID, first name, and last name of employees whose last name starts with 'S' and has a length of 6 characters.
+*v) Retrieve the employee ID, first name, and last name of employees whose hire month is February.
+*w) Retrieve the employee ID, first name, and last name of employees whose age is greater than the average age of all employees.
+x) Retrieve the employee ID, first name, and last name of employees whose salary is higher than the maximum salary in the Sales department.
+*y) Retrieve the employee ID, first name, and last name of employees whose hire date is before '2020-01-01' or after '2023-01-01'.
+*z) Retrieve the employee ID, first name, and last name of employees whose last name contains the string 'son' in any position.
+*aa) Retrieve the employee ID, first name, and last name of employees whose department is 'Finance' and age is not equal to 40.
+*bb) Retrieve the employee ID, first name, and last name of employees whose salary is greater than the average salary of employees in the Marketing department.
+*cc) Retrieve the employee ID, first name, and last name of employees whose hire date is in the year 2023 and the month is either 'January' or 'February'.
+*dd) Retrieve the employee ID, first name, and last name of employees whose first name starts with 'A' and the last name ends with 'son'.
+*ee) Retrieve the employee ID, first name, and last name of employees whose age is less than 30 or salary is greater than $5000.
+*ff) Retrieve the employee ID, first name, and last name of employees whose department is 'Engineering' and age is between 25 and 35.
+*gg) Retrieve the employee ID, first name, and last name of employees whose hire date is on a Monday.
+*hh) Retrieve the employee ID, first name, and last name of employees whose last name contains the substring 'smi' (case-insensitive).
+ii) Retrieve the employee ID, first name, and last name of employees whose salary is within the top 10% of the highest salaries.
+*jj) Retrieve the employee ID, first name, and last name of employees whose hire date is after 30 days from the current date.
+*kk) Retrieve the employee ID, first name, and last name of employees whose age is not in the range of 30 to 40.
+*ll) Retrieve the employee ID, first name, and last name of employees whose first name has exactly four characters.
+
+
+
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| amozon             |
+| college            |
+| companydb          |
+| employee           |
+| mysql              |
+| performance_schema |
+| product            |
+| test               |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> USE companydb;
+Database changed
+mysql> DESC employees;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| EmployeeID | int(11)       | NO   | PRI | NULL    |       |
+| FirstName  | varchar(50)   | YES  |     | NULL    |       |
+| LastName   | varchar(50)   | YES  |     | NULL    |       |
+| Age        | int(11)       | YES  |     | NULL    |       |
+| Department | varchar(50)   | YES  |     | NULL    |       |
+| Salary     | decimal(10,2) | YES  |     | NULL    |       |
+| HireDate   | date          | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+7 rows in set (0.02 sec)
+
+mysql> INSERT INTO employees(EmployeeID,FirstName,LastName,Age,Department,Salary,HireDate) VALUES (1,"RamaKrishna","Dommeti",35,"Marketing",35000,'2023-01-02'),(2,"VenkateswarRao","Kota",40,"Manegement",32000,'2023-02-21'),(3,"Nagaraju","kudupudi",29,"Marketing",34000,'2023-04-24'),(4,"Veerababu","katta",25,"HR",40000,'2023-04-28'),(5,"Prasad","Kota",24,"TeamLeader",30000,'2023-05-10'),(6,"Mohan","Sabbavarapu",25,"TeamLeader",31000,'2023-06-20'),(7,"VenkatSai","Bandela",24,"finance",35000,'2023-07-01'),(8,"SaiRanga","Jogi",25,"Sales",28000,'2023-07-12'),(9,"Uday","Dommeti",26,"finance",32000,'2023-07-20'),(10,"Mani","KOta",25,"HR",38000,'2023-07-28');
+Query OK, 10 rows affected (0.00 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM empolyees;
+ERROR 1146 (42S02): Table 'companydb.empolyees' doesn't exist
+mysql> SELECT * FROM employees;
++------------+----------------+-------------+------+------------+----------+------------+
+| EmployeeID | FirstName      | LastName    | Age  | Department | Salary   | HireDate   |
++------------+----------------+-------------+------+------------+----------+------------+
+|          1 | RamaKrishna    | Dommeti     |   35 | Marketing  | 35000.00 | 2023-01-02 |
+|          2 | VenkateswarRao | Kota        |   40 | Manegement | 32000.00 | 2023-02-21 |
+|          3 | Nagaraju       | kudupudi    |   29 | Marketing  | 34000.00 | 2023-04-24 |
+|          4 | Veerababu      | katta       |   25 | HR         | 40000.00 | 2023-04-28 |
+|          5 | Prasad         | Kota        |   24 | TeamLeader | 30000.00 | 2023-05-10 |
+|          6 | Mohan          | Sabbavarapu |   25 | TeamLeader | 31000.00 | 2023-06-20 |
+|          7 | VenkatSai      | Bandela     |   24 | finance    | 35000.00 | 2023-07-01 |
+|          8 | SaiRanga       | Jogi        |   25 | Sales      | 28000.00 | 2023-07-12 |
+|          9 | Uday           | Dommeti     |   26 | finance    | 32000.00 | 2023-07-20 |
+|         10 | Mani           | KOta        |   25 | HR         | 38000.00 | 2023-07-28 |
++------------+----------------+-------------+------+------------+----------+------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT FirstName,LastName FROM employees WHERE Age>30;
++----------------+----------+
+| FirstName      | LastName |
++----------------+----------+
+| RamaKrishna    | Dommeti  |
+| VenkateswarRao | Kota     |
++----------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE Department = ('Sales', 'HR');
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE Department in ('Sales', 'HR');
++------------+-----------+----------+
+| EmployeeID | FirstName | LastName |
++------------+-----------+----------+
+|          4 | Veerababu | katta    |
+|          8 | SaiRanga  | Jogi     |
+|         10 | Mani      | KOta     |
++------------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE HireDate BETWEEN '2023-02-01' AND '2023-04-30';
++------------+----------------+----------+
+| EmployeeID | FirstName      | LastName |
++------------+----------------+----------+
+|          2 | VenkateswarRao | Kota     |
+|          3 | Nagaraju       | kudupudi |
+|          4 | Veerababu      | katta    |
++------------+----------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT FirstName, LastName FROM Employees WHERE FirstName LIKE 'v%';
++----------------+----------+
+| FirstName      | LastName |
++----------------+----------+
+| VenkateswarRao | Kota     |
+| Veerababu      | katta    |
+| VenkatSai      | Bandela  |
++----------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT FirstName, LastName FROM Employees WHERE LastName LIKE '%kota';
++----------------+----------+
+| FirstName      | LastName |
++----------------+----------+
+| VenkateswarRao | Kota     |
+| Prasad         | Kota     |
+| Mani           | KOta     |
++----------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE Age in(25,30,35);
++------------+-------------+-------------+
+| EmployeeID | FirstName   | LastName    |
++------------+-------------+-------------+
+|          1 | RamaKrishna | Dommeti     |
+|          4 | Veerababu   | katta       |
+|          6 | Mohan       | Sabbavarapu |
+|          8 | SaiRanga    | Jogi        |
+|         10 | Mani        | KOta        |
++------------+-------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT AVG(salary) FROM employees;
++--------------+
+| AVG(salary)  |
++--------------+
+| 33500.000000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUM(salary) FROM employees WHERE Department = 'Sales';
++-------------+
+| SUM(salary) |
++-------------+
+|    28000.00 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM employees WHERE Department = 'HR';
++----------+
+| COUNT(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE YEAR(HireDate) = YEAR(CURRENT_DATE());
++------------+----------------+-------------+
+| EmployeeID | FirstName      | LastName    |
++------------+----------------+-------------+
+|          1 | RamaKrishna    | Dommeti     |
+|          2 | VenkateswarRao | Kota        |
+|          3 | Nagaraju       | kudupudi    |
+|          4 | Veerababu      | katta       |
+|          5 | Prasad         | Kota        |
+|          6 | Mohan          | Sabbavarapu |
+|          7 | VenkatSai      | Bandela     |
+|          8 | SaiRanga       | Jogi        |
+|          9 | Uday           | Dommeti     |
+|         10 | Mani           | KOta        |
++------------+----------------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE NOT FirstName='venkatsai';
++------------+----------------+-------------+
+| EmployeeID | FirstName      | LastName    |
++------------+----------------+-------------+
+|          1 | RamaKrishna    | Dommeti     |
+|          2 | VenkateswarRao | Kota        |
+|          3 | Nagaraju       | kudupudi    |
+|          4 | Veerababu      | katta       |
+|          5 | Prasad         | Kota        |
+|          6 | Mohan          | Sabbavarapu |
+|          8 | SaiRanga       | Jogi        |
+|          9 | Uday           | Dommeti     |
+|         10 | Mani           | KOta        |
++------------+----------------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees ORDER BY salary desc;
++------------+----------------+-------------+
+| EmployeeID | FirstName      | LastName    |
++------------+----------------+-------------+
+|          4 | Veerababu      | katta       |
+|         10 | Mani           | KOta        |
+|          7 | VenkatSai      | Bandela     |
+|          1 | RamaKrishna    | Dommeti     |
+|          3 | Nagaraju       | kudupudi    |
+|          2 | VenkateswarRao | Kota        |
+|          9 | Uday           | Dommeti     |
+|          6 | Mohan          | Sabbavarapu |
+|          5 | Prasad         | Kota        |
+|          8 | SaiRanga       | Jogi        |
++------------+----------------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees LIMIT 5;
++------------+----------------+----------+------+------------+----------+------------+
+| EmployeeID | FirstName      | LastName | Age  | Department | Salary   | HireDate   |
++------------+----------------+----------+------+------------+----------+------------+
+|          1 | RamaKrishna    | Dommeti  |   35 | Marketing  | 35000.00 | 2023-01-02 |
+|          2 | VenkateswarRao | Kota     |   40 | Manegement | 32000.00 | 2023-02-21 |
+|          3 | Nagaraju       | kudupudi |   29 | Marketing  | 34000.00 | 2023-04-24 |
+|          4 | Veerababu      | katta    |   25 | HR         | 40000.00 | 2023-04-28 |
+|          5 | Prasad         | Kota     |   24 | TeamLeader | 30000.00 | 2023-05-10 |
++------------+----------------+----------+------+------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM employees WHERE Salary BETWEEN 30000 AND 35000;
++------------+----------------+-------------+
+| EmployeeID | FirstName      | LastName    |
++------------+----------------+-------------+
+|          1 | RamaKrishna    | Dommeti     |
+|          2 | VenkateswarRao | Kota        |
+|          3 | Nagaraju       | kudupudi    |
+|          5 | Prasad         | Kota        |
+|          6 | Mohan          | Sabbavarapu |
+|          7 | VenkatSai      | Bandela     |
+|          9 | Uday           | Dommeti     |
++------------+----------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE FirstName IN ('uday','sairanga');
++------------+-----------+----------+
+| EmployeeID | FirstName | LastName |
++------------+-----------+----------+
+|          8 | SaiRanga  | Jogi     |
+|          9 | Uday      | Dommeti  |
++------------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID,FirstName,LastName FROM employee WHERE NOT LastName=dommeti AND Age
+=25 AND 40;
+ERROR 1146 (42S02): Table 'companydb.employee' doesn't exist
+mysql> SELECT EmployeeID,FirstName,LastName FROM employees WHERE NOT LastName=Dommeti AND AgeBETWEEN '25 AND 40';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''25 AND 40'' at line 1
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE NOT LastName 'Dommeti' AND Age BETWEEN 25 AND 40;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''Dommeti' AND Age BETWEEN 25 AND 40' at line 1
+mysql> SELECT EmployeeID, FirstName, LastName FROM employees WHERE NOT LastName = 'Dommeti' AND Age BETWEEN 25 AND 40;
++------------+----------------+-------------+
+| EmployeeID | FirstName      | LastName    |
++------------+----------------+-------------+
+|          2 | VenkateswarRao | Kota        |
+|          3 | Nagaraju       | kudupudi    |
+|          4 | Veerababu      | katta       |
+|          6 | Mohan          | Sabbavarapu |
+|          8 | SaiRanga       | Jogi        |
+|         10 | Mani           | KOta        |
++------------+----------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE Department IN ('Sales' OR
+'Marketing') AND Age > 35;
++------------+----------------+----------+
+| EmployeeID | FirstName      | LastName |
++------------+----------------+----------+
+|          2 | VenkateswarRao | Kota     |
++------------+----------------+----------+
+1 row in set, 10 warnings (0.01 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE Department IN ('Sales' , 'Marketing') AND Age > 35;
+Empty set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE Department IN ('Sales' , 'Marketing') AND Age > 25;
++------------+-------------+----------+
+| EmployeeID | FirstName   | LastName |
++------------+-------------+----------+
+|          1 | RamaKrishna | Dommeti  |
+|          3 | Nagaraju    | kudupudi |
++------------+-------------+----------+
+2 rows in set (0.00 sec)
+       SELECT
+mysql> SELECT EmployeeID,FirstName,LastName FROM employees HireDate >= current_date();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '>= current_date()' at line 1
+mysql> SELECT EmployeeID,FirstName,LastName FROM employees HireDate BETWEEN '2023-02-21' AND current_date();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN '2023-02-21' AND current_date()' at line 1
+mysql> SELECT EmployeeID,FirstName,LastName FROM employees HireDate BETWEEN '2023-02-21' AND curdate();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN '2023-02-21' AND curdate()' at line 1
+mysql> SELECT EmployeeID,FirstName,LastName FROM employees HireDate BETWEEN '2023-02-21' AND CURDATE();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version fSELECT EmployeeID,FirstName,LastName FROM employees HireDate BETWEEN '2023-02-21' AND CURDATE();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN '2023-02-21' AND CURDATE()' at line 1
+mysql> SELECT EmployeeID,FirstName,LastName FROM employees HireDate BETWEEN '2023-01-25' AND CURDATE();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN '2023-01-25' AND CURDATE()' at line 1
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE HireDate >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH);
++------------+----------------+-------------+
+| EmployeeID | FirstName      | LastName    |
++------------+----------------+-------------+
+|          2 | VenkateswarRao | Kota        |
+|          3 | Nagaraju       | kudupudi    |
+|          4 | Veerababu      | katta       |
+|          5 | Prasad         | Kota        |
+|          6 | Mohan          | Sabbavarapu |
+|          7 | VenkatSai      | Bandela     |
+|          8 | SaiRanga       | Jogi        |
+|          9 | Uday           | Dommeti     |
+|         10 | Mani           | KOta        |
++------------+----------------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE FirstName LIKE '%a%';
++------------+----------------+-------------+
+| EmployeeID | FirstName      | LastName    |
++------------+----------------+-------------+
+|          1 | RamaKrishna    | Dommeti     |
+|          2 | VenkateswarRao | Kota        |
+|          3 | Nagaraju       | kudupudi    |
+|          4 | Veerababu      | katta       |
+|          5 | Prasad         | Kota        |
+|          6 | Mohan          | Sabbavarapu |
+|          7 | VenkatSai      | Bandela     |
+|          8 | SaiRanga       | Jogi        |
+|          9 | Uday           | Dommeti     |
+|         10 | Mani           | KOta        |
++------------+----------------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE FirstName LIKE '%s%';
++------------+----------------+----------+
+| EmployeeID | FirstName      | LastName |
++------------+----------------+----------+
+|          1 | RamaKrishna    | Dommeti  |
+|          2 | VenkateswarRao | Kota     |
+|          5 | Prasad         | Kota     |
+|          7 | VenkatSai      | Bandela  |
+|          8 | SaiRanga       | Jogi     |
++------------+----------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select EmployeeID,FirstName,LastName from employees where Salary < (select avg(Salary) from employees where Department='teamleader');
++------------+-----------+----------+
+| EmployeeID | FirstName | LastName |
++------------+-----------+----------+
+|          5 | Prasad    | Kota     |
+|          8 | SaiRanga  | Jogi     |
++------------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> EmployeeID,FirstName,LastName FROM Employees WHERE LastName LIKE 'S%' AND LENGTH(LastName)>=6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'EmployeeID,FirstName,LastName FROM Employees WHERE LastName LIKE 'S%' AND LENGTH' at line 1
+mysql> SELECT EmployeeID,FirstName,LastName FROM Employees WHERE LastName LIKE 'S%' AND LENGTH(LastName)>=6;
++------------+-----------+-------------+
+| EmployeeID | FirstName | LastName    |
++------------+-----------+-------------+
+|          6 | Mohan     | Sabbavarapu |
++------------+-----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EmployeeID,FirstName,LastName FROM Employees WHERE MONTH(HireDate)=2;
++------------+----------------+----------+
+| EmployeeID | FirstName      | LastName |
++------------+----------------+----------+
+|          2 | VenkateswarRao | Kota     |
++------------+----------------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EmployeeID,FirstName,LastName FROM Employees WHERE MONTH(HireDate)=7;
++------------+-----------+----------+
+| EmployeeID | FirstName | LastName |
++------------+-----------+----------+
+|          7 | VenkatSai | Bandela  |
+|          8 | SaiRanga  | Jogi     |
+|          9 | Uday      | Dommeti  |
+|         10 | Mani      | KOta     |
++------------+-----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID,FirstName,LastNAme FROM employees WHERE Age>(SELECT AVG(Age) FROM employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SELECT EmployeeID,FirstName,LastNAme FROM employees WHERE Age>(SELECT AVG(Age) FROM employees);
++------------+----------------+----------+
+| EmployeeID | FirstName      | LastNAme |
++------------+----------------+----------+
+|          1 | RamaKrishna    | Dommeti  |
+|          2 | VenkateswarRao | Kota     |
+|          3 | Nagaraju       | kudupudi |
++------------+----------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE HireDate < '2023-01-01' OR HireDate > '2023-05-28';
++------------+-----------+-------------+
+| EmployeeID | FirstName | LastName    |
++------------+-----------+-------------+
+|          6 | Mohan     | Sabbavarapu |
+|          7 | VenkatSai | Bandela     |
+|          8 | SaiRanga  | Jogi        |
+|          9 | Uday      | Dommeti     |
+|         10 | Mani      | KOta        |
++------------+-----------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE LastName LIKE '%kota%';
++------------+----------------+----------+
+| EmployeeID | FirstName      | LastName |
++------------+----------------+----------+
+|          2 | VenkateswarRao | Kota     |
+|          5 | Prasad         | Kota     |
+|         10 | Mani           | KOta     |
++------------+----------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE Department = 'Finance' AND Age = 40;
+Empty set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE Department = 'Finance' AND Age = 24;
++------------+-----------+----------+
+| EmployeeID | FirstName | LastName |
++------------+-----------+----------+
+|          7 | VenkatSai | Bandela  |
++------------+-----------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE Salary > (SELECT AVG(Salary) FROM Employees WHERE Department = 'Marketing');
++------------+-------------+----------+
+| EmployeeID | FirstName   | LastName |
++------------+-------------+----------+
+|          1 | RamaKrishna | Dommeti  |
+|          4 | Veerababu   | katta    |
+|          7 | VenkatSai   | Bandela  |
+|         10 | Mani        | KOta     |
++------------+-------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE YEAR(HireDate) = 2023 AND MONTH(HireDate) IN (1, 2);
++------------+----------------+----------+
+| EmployeeID | FirstName      | LastName |
++------------+----------------+----------+
+|          1 | RamaKrishna    | Dommeti  |
+|          2 | VenkateswarRao | Kota     |
++------------+----------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE FirstName LIKE 'P%' AND LastName LIKE '%kota';
++------------+-----------+----------+
+| EmployeeID | FirstName | LastName |
++------------+-----------+----------+
+|          5 | Prasad    | Kota     |
++------------+-----------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE Department = 'Engineering' AND Age BETWEEN 25 AND 35;
+Empty set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE Department = 'Marketing' AND Age BETWEEN 25 AND 35;
++------------+-------------+----------+
+| EmployeeID | FirstName   | LastName |
++------------+-------------+----------+
+|          1 | RamaKrishna | Dommeti  |
+|          3 | Nagaraju    | kudupudi |
++------------+-------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE DAYOFWEEK(HireDate) = 2;
++------------+-------------+----------+
+| EmployeeID | FirstName   | LastName |
++------------+-------------+----------+
+|          1 | RamaKrishna | Dommeti  |
+|          3 | Nagaraju    | kudupudi |
++------------+-------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT EmployeeID, FirstName, LastName FROM Employees WHERE DAYOFWEEK(HireDate) = 3;
++------------+----------------+-------------+
+| EmployeeID | FirstName      | LastName    |
++------------+----------------+-------------+
+|          2 | VenkateswarRao | Kota        |
+|          6 | Mohan          | Sabbavarapu |
++------------+----------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select EmployeeID,FirstName,LastName from employees where FirstName like 'r%' and LastName like '%eti';
++------------+-------------+----------+
+| EmployeeID | FirstName   | LastName |
++------------+-------------+----------+
+|          1 | RamaKrishna | Dommeti  |
++------------+-------------+----------+
+1 row in set (0.00 sec)
+
+mysql> select EmployeeID,FirstName,LastName from employees where Age < 30 or Salary > 30000;
++------------+----------------+-------------+
+| EmployeeID | FirstName      | LastName    |
++------------+----------------+-------------+
+|          1 | RamaKrishna    | Dommeti     |
+|          2 | VenkateswarRao | Kota        |
+|          3 | Nagaraju       | kudupudi    |
+|          4 | Veerababu      | katta       |
+|          5 | Prasad         | Kota        |
+|          6 | Mohan          | Sabbavarapu |
+|          7 | VenkatSai      | Bandela     |
+|          8 | SaiRanga       | Jogi        |
+|          9 | Uday           | Dommeti     |
+|         10 | Mani           | KOta        |
++------------+----------------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> select EmployeeID,FirstName,LastName from employees where Department ='HR' and (Age in(25,35));
++------------+-----------+----------+
+| EmployeeID | FirstName | LastName |
++------------+-----------+----------+
+|          4 | Veerababu | katta    |
+|         10 | Mani      | KOta     |
++------------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select EmployeeID,FirstName,LastName from employees where dayname(HireDate)='Monday';
++------------+-------------+----------+
+| EmployeeID | FirstName   | LastName |
++------------+-------------+----------+
+|          1 | RamaKrishna | Dommeti  |
+|          3 | Nagaraju    | kudupudi |
++------------+-------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select EmployeeID,FirstName,LastName from employees where LastName like '%as%';
+Empty set (0.00 sec)
+
+mysql> select EmployeeID,FirstName,LastName from employees where LastName like '%di%';
++------------+-----------+----------+
+| EmployeeID | FirstName | LastName |
++------------+-----------+----------+
+|          3 | Nagaraju  | kudupudi |
++------------+-----------+----------+
+1 row in set (0.00 sec)
+
+mysql> select EmployeeID,FirstName,LastName from employees where HireDate > DATE_ADD(CURDATE(), interval 30 day);
+Empty set (0.00 sec)
+
+mysql> select EmployeeID,FirstName,LastName from employees where not Age in(30,40);
++------------+-------------+-------------+
+| EmployeeID | FirstName   | LastName    |
++------------+-------------+-------------+
+|          1 | RamaKrishna | Dommeti     |
+|          3 | Nagaraju    | kudupudi    |
+|          4 | Veerababu   | katta       |
+|          5 | Prasad      | Kota        |
+|          6 | Mohan       | Sabbavarapu |
+|          7 | VenkatSai   | Bandela     |
+|          8 | SaiRanga    | Jogi        |
+|          9 | Uday        | Dommeti     |
+|         10 | Mani        | KOta        |
++------------+-------------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> select EmployeeID,FirstName,LastName from employees where length(FirstName) = 5;
++------------+-----------+-------------+
+| EmployeeID | FirstName | LastName    |
++------------+-----------+-------------+
+|          6 | Mohan     | Sabbavarapu |
++------------+-----------+-------------+
+1 row in set (0.00 sec)

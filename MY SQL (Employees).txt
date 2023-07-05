@@ -1,0 +1,519 @@
+MY SQL (Employees)
+
+Create a table named "employees" with the following columns:
+id: An auto-incrementing integer representing the unique identifier for each employee. This column should be the primary key.
+first_name: A string column representing the first name of the employee.
+last_name: A string column representing the last name of the employee.
+email: A string column representing the email address of the employee.
+phone_number: A string column representing the phone number of the employee.
+hire_date: A date column representing the date when the employee was hired.
+salary: A decimal column representing the salary of the employee.
+department: A string column representing the department in which the employee works.
+
+Insert data into the table:
+
+Insert at least five employees into the "employees" table, each with different first names, last names, email addresses, phone numbers, hire dates, salaries, and departments.
+
+Retrieve data from the table:
+
+Write SQL queries to retrieve the following information:
+All employees who work in a specific department (e.g., department = 'Sales').
+All employees who have a salary greater than a certain amount (e.g., salary > 50000).
+The total number of employees in the company.
+The employee(s) with the highest salary.
+The employee(s) hired on a specific date (e.g., hire_date = '2023-01-15').
+
+
+
+mysql> USE product;
+Database changed
+mysql> CREATE TABLE employees(Id int auto_increment primary key,first_name varchar(20),last_name varchar(20),email varchar(20),phone_number varchar(20),hire_date date,salary decimal,department varchar(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_product |
++-------------------+
+| employees         |
+| sales             |
++-------------------+
+2 rows in set (0.01 sec)
+
+mysql> DESC employees;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| Id           | int(11)       | NO   | PRI | NULL    | auto_increment |
+| first_name   | varchar(20)   | YES  |     | NULL    |                |
+| last_name    | varchar(20)   | YES  |     | NULL    |                |
+| email        | varchar(20)   | YES  |     | NULL    |                |
+| phone_number | varchar(20)   | YES  |     | NULL    |                |
+| hire_date    | date          | YES  |     | NULL    |                |
+| salary       | decimal(10,0) | YES  |     | NULL    |                |
+| department   | varchar(20)   | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.02 sec)
+
+mysql> INSERT INTO employees (first_name, last_name, email, phone_number, hire_date, salary, department) VALUES ("Mani","Kota","mani123@gmail.com","9546870123",'2023-01-01',50000,"sales"),("Raju","Vennela","raju234@gmail.com","9630258147",'2023-02-15',60000,"Marketing"),("Prasanth","Pammi","prasa22@gamil.com","9546012387",'2023-03-10',50000,"sales"),("prasad","kota","prasad33@gamil.com","8374224499",'2023-04-20',55000,"HR"),("Hari","Gopisetti","hari55@gmail.com","9621304782",'2023-05-05',55000,"sales");
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM employees;
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+|  1 | Mani       | Kota      | mani123@gmail.com  | 9546870123   | 2023-01-01 |  50000 | sales      |
+|  2 | Raju       | Vennela   | raju234@gmail.com  | 9630258147   | 2023-02-15 |  60000 | Marketing  |
+|  3 | Prasanth   | Pammi     | prasa22@gamil.com  | 9546012387   | 2023-03-10 |  50000 | sales      |
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |
+|  5 | Hari       | Gopisetti | hari55@gmail.com   | 9621304782   | 2023-05-05 |  55000 | sales      |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE department = 'Sales';
++----+------------+-----------+-------------------+--------------+------------+--------+------------+
+| Id | first_name | last_name | email             | phone_number | hire_date  | salary | department |
++----+------------+-----------+-------------------+--------------+------------+--------+------------+
+|  1 | Mani       | Kota      | mani123@gmail.com | 9546870123   | 2023-01-01 |  50000 | sales      |
+|  3 | Prasanth   | Pammi     | prasa22@gamil.com | 9546012387   | 2023-03-10 |  50000 | sales      |
+|  5 | Hari       | Gopisetti | hari55@gmail.com  | 9621304782   | 2023-05-05 |  55000 | sales      |
++----+------------+-----------+-------------------+--------------+------------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE salary > 50000.00;
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+|  2 | Raju       | Vennela   | raju234@gmail.com  | 9630258147   | 2023-02-15 |  60000 | Marketing  |
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |
+|  5 | Hari       | Gopisetti | hari55@gmail.com   | 9621304782   | 2023-05-05 |  55000 | sales      |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * From employees WHERE total_emoployees;
+ERROR 1054 (42S22): Unknown column 'total_emoployees' in 'where clause'
+mysql> SELECT COUNT(*) FROM employees;
++----------+
+| COUNT(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE salary = (SELECT MAX(salary) FROM employees);
++----+------------+-----------+-------------------+--------------+------------+--------+------------+
+| Id | first_name | last_name | email             | phone_number | hire_date  | salary | department |
++----+------------+-----------+-------------------+--------------+------------+--------+------------+
+|  2 | Raju       | Vennela   | raju234@gmail.com | 9630258147   | 2023-02-15 |  60000 | Marketing  |
++----+------------+-----------+-------------------+--------------+------------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE hire_date = '2023-01-15';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE hire_date = '2023-04-20';
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+1 row in set (0.00 sec)
+
+*************************************************************************************************************************
+(PRACTICE):
+
+mysql> SELECT Id,first_name,last_name from employees where Id=3;
++----+------------+-----------+
+| Id | first_name | last_name |
++----+------------+-----------+
+|  3 | Prasanth   | Pammi     |
++----+------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employees where salary BETWEEN 55000 and 58000;
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |
+|  5 | Hari       | Gopisetti | hari55@gmail.com   | 9621304782   | 2023-05-05 |  55000 | sales      |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees where salary>=55000 and department=sales;
+ERROR 1054 (42S22): Unknown column 'sales' in 'where clause'
+mysql> SELECT *FROM employees WHERE salary>=55000 and department = sales;
+ERROR 1054 (42S22): Unknown column 'sales' in 'where clause'
+mysql> SELECT * FROM employees WHERE salary>=55000 and department = sales;
+ERROR 1054 (42S22): Unknown column 'sales' in 'where clause'
+mysql> SELECT * FROM employees WHERE salary>=55000 and department = "sales";
++----+------------+-----------+------------------+--------------+------------+--------+------------+
+| Id | first_name | last_name | email            | phone_number | hire_date  | salary | department |
++----+------------+-----------+------------------+--------------+------------+--------+------------+
+|  5 | Hari       | Gopisetti | hari55@gmail.com | 9621304782   | 2023-05-05 |  55000 | sales      |
++----+------------+-----------+------------------+--------------+------------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employees where department="HR" OR department="Marketing";
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+|  2 | Raju       | Vennela   | raju234@gmail.com  | 9630258147   | 2023-02-15 |  60000 | Marketing  |
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE NOT department="Marketing";
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+|  1 | Mani       | Kota      | mani123@gmail.com  | 9546870123   | 2023-01-01 |  50000 | sales      |
+|  3 | Prasanth   | Pammi     | prasa22@gamil.com  | 9546012387   | 2023-03-10 |  50000 | sales      |
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |
+|  5 | Hari       | Gopisetti | hari55@gmail.com   | 9621304782   | 2023-05-05 |  55000 | sales      |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE salary>=50000 AND NOT department ="sales";
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+|  2 | Raju       | Vennela   | raju234@gmail.com  | 9630258147   | 2023-02-15 |  60000 | Marketing  |
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE employee ADD column age int;
+ERROR 1146 (42S02): Table 'product.employee' doesn't exist
+mysql> ALTER TABLE employees ADD column age int;
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> DESC employees;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| Id           | int(11)       | NO   | PRI | NULL    | auto_increment |
+| first_name   | varchar(20)   | YES  |     | NULL    |                |
+| last_name    | varchar(20)   | YES  |     | NULL    |                |
+| email        | varchar(20)   | YES  |     | NULL    |                |
+| phone_number | varchar(20)   | YES  |     | NULL    |                |
+| hire_date    | date          | YES  |     | NULL    |                |
+| salary       | decimal(10,0) | YES  |     | NULL    |                |
+| department   | varchar(20)   | YES  |     | NULL    |                |
+| age          | int(11)       | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.01 sec)
+
+mysql> SELECT * FROM employees;
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+|  1 | Mani       | Kota      | mani123@gmail.com  | 9546870123   | 2023-01-01 |  50000 | sales      | NULL |
+|  2 | Raju       | Vennela   | raju234@gmail.com  | 9630258147   | 2023-02-15 |  60000 | Marketing  | NULL |
+|  3 | Prasanth   | Pammi     | prasa22@gamil.com  | 9546012387   | 2023-03-10 |  50000 | sales      | NULL |
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         | NULL |
+|  5 | Hari       | Gopisetti | hari55@gmail.com   | 9621304782   | 2023-05-05 |  55000 | sales      | NULL |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE employees SET age=23 where Id=1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  UPDATE employees SET age=24 where Id=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  UPDATE employees SET age=20 where Id=3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  UPDATE employees SET age=25 where Id=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  UPDATE employees SET age=32 where Id=5;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM employees;
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+|  1 | Mani       | Kota      | mani123@gmail.com  | 9546870123   | 2023-01-01 |  50000 | sales      |   23 |
+|  2 | Raju       | Vennela   | raju234@gmail.com  | 9630258147   | 2023-02-15 |  60000 | Marketing  |   24 |
+|  3 | Prasanth   | Pammi     | prasa22@gamil.com  | 9546012387   | 2023-03-10 |  50000 | sales      |   20 |
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |   25 |
+|  5 | Hari       | Gopisetti | hari55@gmail.com   | 9621304782   | 2023-05-05 |  55000 | sales      |   32 |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE salary<=25 and department="sales";
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE salary>=25 and department="sales";
++----+------------+-----------+-------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email             | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+-------------------+--------------+------------+--------+------------+------+
+|  1 | Mani       | Kota      | mani123@gmail.com | 9546870123   | 2023-01-01 |  50000 | sales      |   23 |
+|  3 | Prasanth   | Pammi     | prasa22@gamil.com | 9546012387   | 2023-03-10 |  50000 | sales      |   20 |
+|  5 | Hari       | Gopisetti | hari55@gmail.com  | 9621304782   | 2023-05-05 |  55000 | sales      |   32 |
++----+------------+-----------+-------------------+--------------+------------+--------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE first_name = "Prasad" OR first_name = "hari";
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |   25 |
+|  5 | Hari       | Gopisetti | hari55@gmail.com   | 9621304782   | 2023-05-05 |  55000 | sales      |   32 |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE NOT last_name = kota;
+ERROR 1054 (42S22): Unknown column 'kota' in 'where clause'
+mysql>  SELECT * FROM employees WHERE NOT last_name = "kota";
++----+------------+-----------+-------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email             | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+-------------------+--------------+------------+--------+------------+------+
+|  2 | Raju       | Vennela   | raju234@gmail.com | 9630258147   | 2023-02-15 |  60000 | Marketing  |   24 |
+|  3 | Prasanth   | Pammi     | prasa22@gamil.com | 9546012387   | 2023-03-10 |  50000 | sales      |   20 |
+|  5 | Hari       | Gopisetti | hari55@gmail.com  | 9621304782   | 2023-05-05 |  55000 | sales      |   32 |
++----+------------+-----------+-------------------+--------------+------------+--------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE age BETWEEN 25 AND 32;
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |   25 |
+|  5 | Hari       | Gopisetti | hari55@gmail.com   | 9621304782   | 2023-05-05 |  55000 | sales      |   32 |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE first_name LIKE 'p%';
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+|  3 | Prasanth   | Pammi     | prasa22@gamil.com  | 9546012387   | 2023-03-10 |  50000 | sales      |   20 |
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |   25 |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql>  SELECT * FROM employees WHERE first_name LIKE '%a';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE first_name LIKE '%i';
++----+------------+-----------+-------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email             | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+-------------------+--------------+------------+--------+------------+------+
+|  1 | Mani       | Kota      | mani123@gmail.com | 9546870123   | 2023-01-01 |  50000 | sales      |   23 |
+|  5 | Hari       | Gopisetti | hari55@gmail.com  | 9621304782   | 2023-05-05 |  55000 | sales      |   32 |
++----+------------+-----------+-------------------+--------------+------------+--------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE first_name LIKE 'h%i';
++----+------------+-----------+------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email            | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+------------------+--------------+------------+--------+------------+------+
+|  5 | Hari       | Gopisetti | hari55@gmail.com | 9621304782   | 2023-05-05 |  55000 | sales      |   32 |
++----+------------+-----------+------------------+--------------+------------+--------+------------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE first_name LIKE '%sa%';
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+|  3 | Prasanth   | Pammi     | prasa22@gamil.com  | 9546012387   | 2023-03-10 |  50000 | sales      |   20 |
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |   25 |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE first_name LIKE '_a%';
++----+------------+-----------+-------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email             | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+-------------------+--------------+------------+--------+------------+------+
+|  1 | Mani       | Kota      | mani123@gmail.com | 9546870123   | 2023-01-01 |  50000 | sales      |   23 |
+|  2 | Raju       | Vennela   | raju234@gmail.com | 9630258147   | 2023-02-15 |  60000 | Marketing  |   24 |
+|  5 | Hari       | Gopisetti | hari55@gmail.com  | 9621304782   | 2023-05-05 |  55000 | sales      |   32 |
++----+------------+-----------+-------------------+--------------+------------+--------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE first_name LIKE 'a___%';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE first_name LIKE 'p___%';
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+|  3 | Prasanth   | Pammi     | prasa22@gamil.com  | 9546012387   | 2023-03-10 |  50000 | sales      |   20 |
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |   25 |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+2 rows in set (0.00 sec)
+
+
+mysql> SELECT * FROM employees;
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+| Id | first_name | last_name | email              | phone_number | hire_date  | salary | department | age  |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+|  1 | Mani       | Kota      | mani123@gmail.com  | 9546870123   | 2023-01-01 |  50000 | sales      |   23 |
+|  2 | Raju       | Vennela   | raju234@gmail.com  | 9630258147   | 2023-02-15 |  60000 | Marketing  |   24 |
+|  3 | Prasanth   | Pammi     | prasa22@gamil.com  | 9546012387   | 2023-03-10 |  50000 | sales      |   20 |
+|  4 | prasad     | kota      | prasad33@gamil.com | 8374224499   | 2023-04-20 |  55000 | HR         |   25 |
+|  5 | Hari       | Gopisetti | hari55@gmail.com   | 9621304782   | 2023-05-05 |  55000 | sales      |   32 |
++----+------------+-----------+--------------------+--------------+------------+--------+------------+------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT length(first_name) FROM employees;
++--------------------+
+| length(first_name) |
++--------------------+
+|                  4 |
+|                  4 |
+|                  8 |
+|                  6 |
+|                  4 |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT ucase(first_name) FROM employees;
++-------------------+
+| ucase(first_name) |
++-------------------+
+| MANI              |
+| RAJU              |
+| PRASANTH          |
+| PRASAD            |
+| HARI              |
++-------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT reverse(first_name) FROM employees;
++---------------------+
+| reverse(first_name) |
++---------------------+
+| inaM                |
+| ujaR                |
+| htnasarP            |
+| dasarp              |
+| iraH                |
++---------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT concat(first_name,last_name) FROM employees;
++------------------------------+
+| concat(first_name,last_name) |
++------------------------------+
+| ManiKota                     |
+| RajuVennela                  |
+| PrasanthPammi                |
+| prasadkota                   |
+| HariGopisetti                |
++------------------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT substr(first_name,1,3) FROM employees;
++------------------------+
+| substr(first_name,1,3) |
++------------------------+
+| Man                    |
+| Raj                    |
+| Pra                    |
+| pra                    |
+| Har                    |
++------------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT insert(first_name,4,2,'A') FROM employees;
++----------------------------+
+| insert(first_name,4,2,'A') |
++----------------------------+
+| ManA                       |
+| RajA                       |
+| PraAnth                    |
+| praAd                      |
+| HarA                       |
++----------------------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT current_date();
++----------------+
+| current_date() |
++----------------+
+| 2023-07-04     |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT year(current_date());
++----------------------+
+| year(current_date()) |
++----------------------+
+|                 2023 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT now();
++---------------------+
+| now()               |
++---------------------+
+| 2023-07-04 14:50:16 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT hours(now());
+ERROR 1305 (42000): FUNCTION product.hours does not exist
+mysql> SELECT hour(now());
++-------------+
+| hour(now()) |
++-------------+
+|          14 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT minute(now());
++---------------+
+| minute(now()) |
++---------------+
+|            51 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT day(now());
++------------+
+| day(now()) |
++------------+
+|          4 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT dayname(now());
++----------------+
+| dayname(now()) |
++----------------+
+| Tuesday        |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT monthname(now());
++------------------+
+| monthname(now()) |
++------------------+
+| July             |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT user();
++----------------+
+| user()         |
++----------------+
+| root@localhost |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT current_user();
++----------------+
+| current_user() |
++----------------+
+| root@localhost |
++----------------+
+1 row in set (0.00 sec)

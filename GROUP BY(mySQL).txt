@@ -1,0 +1,114 @@
+GROUP BY(mySQL)
+
+mysql> select * from employees;
++------------+----------------+-------------+------+------------+----------+------------+
+| EmployeeID | FirstName      | LastName    | Age  | Department | Salary   | HireDate   |
++------------+----------------+-------------+------+------------+----------+------------+
+|          1 | RamaKrishna    | Dommeti     |   35 | Marketing  | 35000.00 | 2023-01-02 |
+|          2 | VenkateswarRao | Kota        |   40 | Manegement | 32000.00 | 2023-02-21 |
+|          3 | Nagaraju       | kudupudi    |   29 | Marketing  | 34000.00 | 2023-04-24 |
+|          4 | Veerababu      | katta       |   25 | HR         | 40000.00 | 2023-04-28 |
+|          5 | Prasad         | Kota        |   24 | TeamLeader | 30000.00 | 2023-05-10 |
+|          6 | Mohan          | Sabbavarapu |   25 | TeamLeader | 31000.00 | 2023-06-20 |
+|          7 | VenkatSai      | Bandela     |   24 | finance    | 35000.00 | 2023-07-01 |
+|          8 | SaiRanga       | Jogi        |   25 | Sales      | 28000.00 | 2023-07-12 |
+|          9 | Uday           | Dommeti     |   26 | finance    | 32000.00 | 2023-07-20 |
+|         10 | Mani           | KOta        |   25 | HR         | 38000.00 | 2023-07-28 |
++------------+----------------+-------------+------+------------+----------+------------+
+10 rows in set (0.00 sec)
+
+1.Calculate the average salary for each department
+
+mysql> SELECT department,AVG(salary) as Avg_Salary FROM employees GROUP BY department;
++------------+--------------+
+| department | Avg_Salary   |
++------------+--------------+
+| finance    | 33500.000000 |
+| HR         | 39000.000000 |
+| Manegement | 32000.000000 |
+| Marketing  | 34500.000000 |
+| Sales      | 28000.000000 |
+| TeamLeader | 30500.000000 |
++------------+--------------+
+6 rows in set (0.00 sec)
+
+2.Count the number of employees in each department
+
+mysql> SELECT department,count(*) as Employee_count FROM Employees group by department;
++------------+----------------+
+| department | Employee_count |
++------------+----------------+
+| finance    |              2 |
+| HR         |              2 |
+| Manegement |              1 |
+| Marketing  |              2 |
+| Sales      |              1 |
+| TeamLeader |              2 |
++------------+----------------+
+6 rows in set (0.00 sec)
+
+3.Find the total salary expense for each department
+
+mysql> SELECT department,SUM(salary) as total_salary FROM employees group by department;
++------------+--------------+
+| department | total_salary |
++------------+--------------+
+| finance    |     67000.00 |
+| HR         |     78000.00 |
+| Manegement |     32000.00 |
+| Marketing  |     69000.00 |
+| Sales      |     28000.00 |
+| TeamLeader |     61000.00 |
++------------+--------------+
+6 rows in set (0.00 sec)
+
+4.Calculate the total salary expense and average salary for each department
+
+mysql> SELECT department,SUM(salary) as total_salary,AVG(salary) as Avg_Salary FROM employees group by department;
++------------+--------------+--------------+
+| department | total_salary | Avg_Salary   |
++------------+--------------+--------------+
+| finance    |     67000.00 | 33500.000000 |
+| HR         |     78000.00 | 39000.000000 |
+| Manegement |     32000.00 | 32000.000000 |
+| Marketing  |     69000.00 | 34500.000000 |
+| Sales      |     28000.00 | 28000.000000 |
+| TeamLeader |     61000.00 | 30500.000000 |
++------------+--------------+--------------+
+6 rows in set (0.00 sec)
+
+5.Find the number of employees hired each year
+
+mysql> select YEAR(hiredate),count(EmployeeID) from employees group by YEAR(hiredate);
++----------------+-------------------+
+| YEAR(hiredate) | count(EmployeeID) |
++----------------+-------------------+
+|           2023 |                10 |
++----------------+-------------------+
+1 row in set (0.00 sec)
+
+6.Find the department with the highest average salary
+
+mysql> SELECT department, AVG(salary) AS avg_salary FROM employees GROUP BY department ORDER BY avg_salary DESC LIMIT 1;
++------------+--------------+
+| department | avg_salary   |
++------------+--------------+
+| HR         | 39000.000000 |
++------------+--------------+
+1 row in set (0.00 sec)
+
+7.Retrieve the employee count for each department and sort the results in descending order
+
+mysql> SELECT department,COUNT(*) as employee_count FROM employees GROUP BY department Order By emplo
+yee_count desc;
++------------+----------------+
+| department | employee_count |
++------------+----------------+
+| HR         |              2 |
+| TeamLeader |              2 |
+| Marketing  |              2 |
+| finance    |              2 |
+| Manegement |              1 |
+| Sales      |              1 |
++------------+----------------+
+6 rows in set (0.00 sec)

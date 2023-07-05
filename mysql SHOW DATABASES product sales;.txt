@@ -1,0 +1,238 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| amozon             |
+| college            |
+| employee           |
+| mysql              |
+| performance_schema |
+| product            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> USE product;
+Database changed
+mysql> DESC sales;
++---------------+----------------+------+-----+---------+----------------+
+| Field         | Type           | Null | Key | Default | Extra          |
++---------------+----------------+------+-----+---------+----------------+
+| ID            | int(11)        | NO   | PRI | NULL    | auto_increment |
+| product_name  | varchar(20)    | YES  |     | NULL    |                |
+| qauntity      | int(11)        | YES  |     | NULL    |                |
+| unit_price    | decimal(10,10) | YES  |     | NULL    |                |
+| total_price   | decimal(10,10) | YES  |     | NULL    |                |
+| customer_name | varchar(20)    | YES  |     | NULL    |                |
+| sale_date     | date           | YES  |     | NULL    |                |
++---------------+----------------+------+-----+---------+----------------+
+7 rows in set (0.02 sec)
+
+mysql> INSERT INTO sales (product_name, quantity, unit_price, total_price, customer_name, sale_date) VALUES("Ear_phones",2,1000,2000,"vijay",'2023-01-21'),("Mobile",2,9000,18000,"Sai_Krishna",'2023-03-12'),("Charger",5,2000,10000,"Mohan",'2
+023-05-28'),("toy",3,1500,4500,"Ramesh",'2023-06-04'),("TV",2,6000,12000,"Devesh",'2023-07-21');
+ERROR 1054 (42S22): Unknown column 'quantity' in 'field list'
+mysql> INSERT INTO sales (product_name, qauntity, unit_price, total_price, customer_name, sale_date) VALUES("Ear_phones"
+,2,1000,2000,"vijay",'2023-01-21'),("Mobile",2,9000,18000,"Sai_Krishna",'2023-03-12'),("Charger",5,2000,10000,"Mohan",'2
+023-05-28'),("toy",3,1500,4500,"Ramesh",'2023-06-04'),("TV",2,6000,12000,"Devesh",'2023-07-21');
+ERROR 1264 (22003): Out of range value for column 'unit_price' at row 1
+mysql> ALTER TABLE sales modify column unit_price decimal;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE sales modify column total_price decimal;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC sales;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| ID            | int(11)       | NO   | PRI | NULL    | auto_increment |
+| product_name  | varchar(20)   | YES  |     | NULL    |                |
+| qauntity      | int(11)       | YES  |     | NULL    |                |
+| unit_price    | decimal(10,0) | YES  |     | NULL    |                |
+| total_price   | decimal(10,0) | YES  |     | NULL    |                |
+| customer_name | varchar(20)   | YES  |     | NULL    |                |
+| sale_date     | date          | YES  |     | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+7 rows in set (0.02 sec)
+
+mysql> INSERT INTO sales (product_name, quantity, unit_price, total_price, customer_name, sale_date) VALUES("Ear_phones"
+,2,1000,2000,"vijay",'2023-01-21'),("Mobile",2,9000,18000,"Sai_Krishna",'2023-03-12'),("Charger",5,2000,10000,"Mohan",'2
+023-05-28'),("toy",3,1500,4500,"Ramesh",'2023-06-04'),("TV",2,6000,12000,"Devesh",'2023-07-21');
+ERROR 1054 (42S22): Unknown column 'quantity' in 'field list'
+mysql> INSERT INTO sales (product_name, qauntity, unit_price, total_price, customer_name, sale_date) VALUES("Ear_phones"
+,2,1000,2000,"vijay",'2023-01-21'),("Mobile",2,9000,18000,"Sai_Krishna",'2023-03-12'),("Charger",5,2000,10000,"Mohan",'2
+023-05-28'),("toy",3,1500,4500,"Ramesh",'2023-06-04'),("TV",2,6000,12000,"Devesh",'2023-07-21');
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM sales;
++----+--------------+----------+------------+-------------+---------------+------------+
+| ID | product_name | qauntity | unit_price | total_price | customer_name | sale_date  |
++----+--------------+----------+------------+-------------+---------------+------------+
+|  1 | Ear_phones   |        2 |       1000 |        2000 | vijay         | 2023-01-21 |
+|  2 | Mobile       |        2 |       9000 |       18000 | Sai_Krishna   | 2023-03-12 |
+|  3 | Charger      |        5 |       2000 |       10000 | Mohan         | 2023-05-28 |
+|  4 | toy          |        3 |       1500 |        4500 | Ramesh        | 2023-06-04 |
+|  5 | TV           |        2 |       6000 |       12000 | Devesh        | 2023-07-21 |
++----+--------------+----------+------------+-------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM sales WHERE customer_name = "Mohan";
++----+--------------+----------+------------+-------------+---------------+------------+
+| ID | product_name | qauntity | unit_price | total_price | customer_name | sale_date  |
++----+--------------+----------+------------+-------------+---------------+------------+
+|  3 | Charger      |        5 |       2000 |       10000 | Mohan         | 2023-05-28 |
++----+--------------+----------+------------+-------------+---------------+------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT * FROM sales WHERE customer_name = "Sai_Krishna" AND product_name = "toy";
+Empty set (0.01 sec)
+
+mysql>  SELECT * FROM sales WHERE customer_name = "Sai_Krishna" AND product_name = "Mobile";
++----+--------------+----------+------------+-------------+---------------+------------+
+| ID | product_name | qauntity | unit_price | total_price | customer_name | sale_date  |
++----+--------------+----------+------------+-------------+---------------+------------+
+|  2 | Mobile       |        2 |       9000 |       18000 | Sai_Krishna   | 2023-03-12 |
++----+--------------+----------+------------+-------------+---------------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM sales WHERE customer_name = "Ramesh" OR product_name = "Mobile";
++----+--------------+----------+------------+-------------+---------------+------------+
+| ID | product_name | qauntity | unit_price | total_price | customer_name | sale_date  |
++----+--------------+----------+------------+-------------+---------------+------------+
+|  2 | Mobile       |        2 |       9000 |       18000 | Sai_Krishna   | 2023-03-12 |
+|  4 | toy          |        3 |       1500 |        4500 | Ramesh        | 2023-06-04 |
++----+--------------+----------+------------+-------------+---------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM sales WHERE qauntity > 10 AND total_price < 100;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM sales WHERE sale_date = '2023-06-04' AND total_price >= 500;
++----+--------------+----------+------------+-------------+---------------+------------+
+| ID | product_name | qauntity | unit_price | total_price | customer_name | sale_date  |
++----+--------------+----------+------------+-------------+---------------+------------+
+|  4 | toy          |        3 |       1500 |        4500 | Ramesh        | 2023-06-04 |
++----+--------------+----------+------------+-------------+---------------+------------+
+1 row in set (0.00 sec)
+
+
+mysql> CREATE TABLE product_backup(product_name varchar(20),total_price int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO product_backup(SELECT product_name,total_price from sales);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM product_backup;
++--------------+-------------+
+| product_name | total_price |
++--------------+-------------+
+| Ear_phones   |        2000 |
+| Mobile       |       18000 |
+| Charger      |       10000 |
+| toy          |        4500 |
+| TV           |       12000 |
++--------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM sales;
++----+--------------+----------+------------+-------------+---------------+------------+
+| ID | product_name | qauntity | unit_price | total_price | customer_name | sale_date  |
++----+--------------+----------+------------+-------------+---------------+------------+
+|  1 | Ear_phones   |        2 |       1000 |        2000 | vijay         | 2023-01-21 |
+|  2 | Mobile       |        2 |       9000 |       18000 | Sai_Krishna   | 2023-03-12 |
+|  3 | Charger      |        5 |       2000 |       10000 | Mohan         | 2023-05-28 |
+|  4 | toy          |        3 |       1500 |        4500 | Ramesh        | 2023-06-04 |
+|  5 | TV           |        2 |       6000 |       12000 | Devesh        | 2023-07-21 |
++----+--------------+----------+------------+-------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(ID) AS num_of_products FROM sales;
++-----------------+
+| num_of_products |
++-----------------+
+|               5 |
++-----------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT AVG(total_price) as avg_price FROM sales;
++-----------+
+| avg_price |
++-----------+
+| 9300.0000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUM(total_price) as sum_of_price FROM Sales;
++--------------+
+| sum_of_price |
++--------------+
+|        46500 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM sales ORDER BY total_price;
++----+--------------+----------+------------+-------------+---------------+------------+
+| ID | product_name | qauntity | unit_price | total_price | customer_name | sale_date  |
++----+--------------+----------+------------+-------------+---------------+------------+
+|  1 | Ear_phones   |        2 |       1000 |        2000 | vijay         | 2023-01-21 |
+|  4 | toy          |        3 |       1500 |        4500 | Ramesh        | 2023-06-04 |
+|  3 | Charger      |        5 |       2000 |       10000 | Mohan         | 2023-05-28 |
+|  5 | TV           |        2 |       6000 |       12000 | Devesh        | 2023-07-21 |
+|  2 | Mobile       |        2 |       9000 |       18000 | Sai_Krishna   | 2023-03-12 |
++----+--------------+----------+------------+-------------+---------------+------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT * FROM sales ORDER BY DEC total_price;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEC total_price' at line 1
+mysql> SELECT * FROM sales ORDER BY total_price DEC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEC' at line 1
+mysql> SELECT * FROM sales ORDER BY total_price DECS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DECS' at line 1
+mysql> SELECT * FROM sales ORDER BY total_price desc;
++----+--------------+----------+------------+-------------+---------------+------------+
+| ID | product_name | qauntity | unit_price | total_price | customer_name | sale_date  |
++----+--------------+----------+------------+-------------+---------------+------------+
+|  2 | Mobile       |        2 |       9000 |       18000 | Sai_Krishna   | 2023-03-12 |
+|  5 | TV           |        2 |       6000 |       12000 | Devesh        | 2023-07-21 |
+|  3 | Charger      |        5 |       2000 |       10000 | Mohan         | 2023-05-28 |
+|  4 | toy          |        3 |       1500 |        4500 | Ramesh        | 2023-06-04 |
+|  1 | Ear_phones   |        2 |       1000 |        2000 | vijay         | 2023-01-21 |
++----+--------------+----------+------------+-------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM sales ORDER BY product_name,ORDER BY total_price desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY total_price desc' at line 1
+mysql> SELECT * FROM sales ORDER BY product_name,total_price desc;
++----+--------------+----------+------------+-------------+---------------+------------+
+| ID | product_name | qauntity | unit_price | total_price | customer_name | sale_date  |
++----+--------------+----------+------------+-------------+---------------+------------+
+|  3 | Charger      |        5 |       2000 |       10000 | Mohan         | 2023-05-28 |
+|  1 | Ear_phones   |        2 |       1000 |        2000 | vijay         | 2023-01-21 |
+|  2 | Mobile       |        2 |       9000 |       18000 | Sai_Krishna   | 2023-03-12 |
+|  4 | toy          |        3 |       1500 |        4500 | Ramesh        | 2023-06-04 |
+|  5 | TV           |        2 |       6000 |       12000 | Devesh        | 2023-07-21 |
++----+--------------+----------+------------+-------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM sales limit 2;
++----+--------------+----------+------------+-------------+---------------+------------+
+| ID | product_name | qauntity | unit_price | total_price | customer_name | sale_date  |
++----+--------------+----------+------------+-------------+---------------+------------+
+|  1 | Ear_phones   |        2 |       1000 |        2000 | vijay         | 2023-01-21 |
+|  2 | Mobile       |        2 |       9000 |       18000 | Sai_Krishna   | 2023-03-12 |
++----+--------------+----------+------------+-------------+---------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM sales ORDER BY total_price desc limit 2;
++----+--------------+----------+------------+-------------+---------------+------------+
+| ID | product_name | qauntity | unit_price | total_price | customer_name | sale_date  |
++----+--------------+----------+------------+-------------+---------------+------------+
+|  2 | Mobile       |        2 |       9000 |       18000 | Sai_Krishna   | 2023-03-12 |
+|  5 | TV           |        2 |       6000 |       12000 | Devesh        | 2023-07-21 |
++----+--------------+----------+------------+-------------+---------------+------------+
+2 rows in set (0.00 sec)
